@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quadratic Equation Solver</title>
+
+  <!-- Bootstrap core CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="grid.css" rel="stylesheet">
+
+  <script src="QuadraticEquation.js"></script>
+</head>
+
+<body>
+  <form>
+    <div class="container">
+
+      <div class="page-header">
+        <h1>Equation</h1>
+        <p class="lead"> a(Sin(x)) + bx<sup>2</sup> + cx + d = 0</p>
+      </div>
+
+      <h3>Input</h3>
+      <div class="row">
+
+        <div class="col-md-8">
+          <p><strong>Coefficients: </strong></p>
+          <div class="row form-group">
+            <div class="col-md-3"><label for='value for a'>A:</label><input class="input-sm validate" type="number" id='txtA' required placeholder="a"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pa"></p>
+            </div>
+            <div class="col-md-3"><label for='value for b'>B: </label><input class="input-sm validate" type="number" id='txtB' required placeholder="b"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pb"></p>
+            </div>
+            <div class="col-md-3"><label for='value for c'>C: </label><input class="input-sm validate" type="number" id='txtC' required placeholder="c"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pc"></p>
+            </div>
+            <div class="col-md-3"><label for='value for d'>D: </label><input class="input-sm validate" type="number" id='txtD' required placeholder="d"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pd"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 form-group">
+          <p><strong>Range: </strong></p>
+          <div class="row">
+            <div class="col-md-6"><label for='min Range'>Min: </label> <input class="input-sm validate" type="number" id='txtMin' required placeholder="min"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pmin"></p>
+            </div>
+            <div class="col-md-6"><label for='max Range'>Max: </label> <input class="input-sm validate" type="number" id='txtMax' required placeholder="max"
+                maxlength="3" size='4' />
+              <br/>
+              <p class="text-danger" id="pmax"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <button class="btn btn-primary" id='btnCalculate' type="button">Calculate</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary" type="reset">Reset</button></div>
+      </div>
+    </div>
+
+
+    <h3>Output</h3>
+    <div class="row">
+      <div class="col-md-12" id='divResponse'></div>
+    </div>
+    </div>
+    <!-- /container -->
+  </form>
+
+  <script>
+    $(function(){
+      $('#btnCalculate').on('click',calculate);
+    })
+    function calculate(){
+      if(validate())
+      {
+        var obj = {
+          "coefficients":[+$('#txtA').val(),+$('#txtB').val(),+$('#txtC').val(),+$('#txtD').val()],
+          "searchRange":[+$('#txtMin').val(),+$('#txtMax').val()]
+        };
+        var returnValue = main(obj);
+        $('#divResponse').empty();
+        $('#divResponse').html('<pre>' + JSON.stringify(returnValue) + '</pre>');
+      }
+    }
+    function validate(){
+      valid = true;
+      inputObjects = document.getElementsByClassName('validate');
+      for(var i=0;i<inputObjects.length;i++){
+         var isvalid = inputObjects[i].checkValidity();
+         if(isvalid === false){
+           valid=false;
+         }
+      }
+      return valid;
+    }
+  </script>
+
+</body>
+
+</html>
